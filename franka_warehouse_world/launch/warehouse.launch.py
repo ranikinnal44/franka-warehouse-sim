@@ -41,7 +41,7 @@ from launch_ros.substitutions import FindPackageShare
 # --table-height used to generate the corresponding world.
 WORLDS = {
     'small': ('warehouse_boxes_200x300x400.sdf', 0.75),
-    'large': ('warehouse_boxes_200x400x600.sdf', 0.75),
+    'large': ('warehouse_boxes_200x400x400.sdf', 0.75),
 }
 
 
@@ -168,7 +168,7 @@ def generate_launch_description():
         DeclareLaunchArgument(
             'world', default_value='small',
             description="Warehouse world: 'small' (200x300x400 mm boxes), "
-                        "'large' (200x400x600 mm boxes), or a .sdf filename."),
+                        "'large' (200x400x400 mm boxes), or a .sdf filename."),
         DeclareLaunchArgument(
             'mount_height', default_value='',
             description='Arm mounting height in metres. Empty = use the '

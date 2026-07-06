@@ -32,12 +32,9 @@ source install/setup.bash
 ## Run
 
 ```bash
-# Gazebo sim (small = 200x300x400 mm box, large = 200x400x600 mm)
-ros2 launch franka_warehouse_world warehouse.launch.py world:=large
-
-# With MoveIt (planning scene incl. the table + box). Terminal 1:
+# Terminal 1 — Gazebo sim (small = 200x300x400 mm box, large = 200x400x400 mm)
 ros2 launch franka_warehouse_world warehouse.launch.py world:=large rviz:=false
-# Terminal 2:
+# Terminal 2 — MoveIt: move_group + RViz + planning scene (table + box)
 ros2 launch franka_warehouse_world moveit.launch.py world:=large
 ```
 

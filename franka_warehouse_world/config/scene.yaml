@@ -30,5 +30,5 @@ worlds:
     box_xy: [0.45, -0.3]        # box centre on the tabletop (pick spot, -Y side)
   large:
     world_name: warehouse_box_large
-    box_size: [0.2, 0.4, 0.6]   # 200x400x600 mm
+    box_size: [0.2, 0.4, 0.4]   # 200x400x400 mm
     box_xy: [0.45, -0.3]

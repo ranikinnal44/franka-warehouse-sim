@@ -13,7 +13,7 @@ publisher.
 | World (`world:=`) | SDF file | Box size (L×W×H) | Box centre reach |
 |-------------------|----------|------------------|------------------|
 | `small` (default) | `warehouse_boxes_200x300x400.sdf` | 0.2 × 0.3 × 0.4 m | 0.58 m |
-| `large`           | `warehouse_boxes_200x400x600.sdf` | 0.2 × 0.4 × 0.6 m | 0.62 m |
+| `large`           | `warehouse_boxes_200x400x400.sdf` | 0.2 × 0.4 × 0.4 m | 0.58 m |
 
 The tabletop is at 0.75 m; the arm's `link0` is fixed to the world at that
 height via the `xyz` xacro arg (`world_joint` in `fr3.urdf.xacro`), so it sits
@@ -66,10 +66,10 @@ ros2 launch franka_warehouse_world planning_scene.launch.py world:=large
 source /opt/ros/humble/setup.bash
 source install/setup.bash
 
-# 200×300×400 mm stack (default)
+# 200×300×400 mm box (default)
 ros2 launch franka_warehouse_world warehouse.launch.py
 
-# 200×400×600 mm stack
+# 200×400×400 mm box
 ros2 launch franka_warehouse_world warehouse.launch.py world:=large
 ```
 
@@ -90,7 +90,7 @@ mount height), then regenerate both worlds from it:
 python3 scripts/generate_world.py --config config/scene.yaml --world small \
     --output worlds/warehouse_boxes_200x300x400.sdf
 python3 scripts/generate_world.py --config config/scene.yaml --world large \
-    --output worlds/warehouse_boxes_200x400x600.sdf
+    --output worlds/warehouse_boxes_200x400x400.sdf
 ```
 
 Add `--static-box` to pin the box. Because the MoveIt publisher reads the same
