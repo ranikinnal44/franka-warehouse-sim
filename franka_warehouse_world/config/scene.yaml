@@ -1,0 +1,34 @@
+# Single source of truth for the warehouse scene geometry.
+#
+# Both the Gazebo world generator (scripts/generate_world.py) and the MoveIt
+# planning-scene publisher (scripts/publish_planning_scene.py) read this file so
+# the simulated world and MoveIt's collision model stay in sync.
+#
+# Frames:
+#   * Gazebo world: table top at z = table.height above the floor; the arm is
+#     mounted on the tabletop (link0 fixed at table.height).
+#   * MoveIt: the publisher places objects relative to the arm base
+#     (fr3_link0), where the tabletop is z = 0, so table.height is NOT used
+#     there -- only the shapes and X/Y positions matter.
+
+table:
+  height: 0.75        # tabletop surface height above the floor (m) = arm mount height
+  thickness: 0.05     # tabletop slab thickness (m)
+  size_x: 1.2         # tabletop extent along X (m)
+  size_y: 1.2         # tabletop extent along Y (m)
+  center_x: 0.3       # tabletop centre X; the arm sits at X=0 on it (m)
+  leg: 0.06           # square leg cross-section (m)
+
+# Where a picked box could be placed instead (free tabletop spot, +Y side).
+# Informational only -- used in docs / example scripts.
+place_target_xy: [0.45, 0.3]
+
+worlds:
+  small:
+    world_name: warehouse_box_small
+    box_size: [0.2, 0.3, 0.4]   # X Y Z in metres (200x300x400 mm)
+    box_xy: [0.45, -0.3]        # box centre on the tabletop (pick spot, -Y side)
+  large:
+    world_name: warehouse_box_large
+    box_size: [0.2, 0.4, 0.6]   # 200x400x600 mm
+    box_xy: [0.45, -0.3]

@@ -1,0 +1,8 @@
+# colcon workspace artifacts (if built in-tree)
+build/
+install/
+log/
+
+# Python
+__pycache__/
+*.pyc
