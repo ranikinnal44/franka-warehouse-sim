@@ -5,29 +5,25 @@ built on top of `franka_ros2`. It provides:
 
 - **`franka_warehouse_world`** — worlds with a table + mounted arm + a single
   box, launch files for the sim, and a MoveIt planning-scene publisher.
-This is a **meta repo**: the Franka stack is included as git submodules (forks
-of `franka_ros2` and `franka_description` carrying the sim-specific changes —
-force/torque sensor state export in the Gazebo gravity-compensation system, and
-rviz configs — plus unmodified upstream `libfranka` and `olvx`). One recursive
-clone gives the whole workspace `src`.
+This is a **single meta repo**: the whole Franka stack is vendored directly
+(no submodules) — `franka_ros2` and `franka_description` carry the sim-specific
+changes (force/torque sensor state export in the Gazebo gravity-compensation
+system, and rviz configs), alongside `libfranka` and `olvx`. One plain clone
+gives the whole workspace `src`.
 
 ## Setup
 
 Requires ROS 2 Humble + `ros-dev-tools` (`rosdep`, `colcon`).
 
 ```bash
-# clone the meta repo (with submodules) directly as your workspace src/
-git clone --recurse-submodules \
-    https://github.com/ranikinnal44/franka-warehouse-sim.git ~/franka_ws/src
+# clone directly as your workspace src/
+git clone https://github.com/ranikinnal44/franka-warehouse-sim.git ~/franka_ws/src
 
 cd ~/franka_ws
 rosdep install --from-paths src --ignore-src --rosdistro humble -y
 colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTS=OFF
 source install/setup.bash
 ```
-
-> Already cloned without `--recurse-submodules`? Run
-> `git submodule update --init --recursive` inside the repo.
 
 > Two apt packages are only needed by `franka_mobile_sensors` (not the
 > warehouse sim): `ros-humble-realsense2-description`,
@@ -50,10 +46,12 @@ details on the worlds, the arm mounting, and the MoveIt integration.
 
 ## Contents / provenance
 
-| Component | Tracked as | Source |
-|-----------|-----------|--------|
-| `franka_warehouse_world` | in-repo | this repo (Apache-2.0) |
-| `franka_ros2` | submodule `@warehouse-sim` | fork `ranikinnal44/franka_ros2` (upstream `frankarobotics` v2.5.0) |
-| `franka_description` | submodule `@warehouse-sim` | fork `ranikinnal44/franka_description` (upstream 2.8.0) |
-| `libfranka` | submodule (pinned 0.20.4) | upstream `frankarobotics/libfranka` (unmodified) |
-| `olvx_descriptions_module` | submodule (main) | upstream `olive-robotics` (unmodified) |
+All packages are vendored in-repo. Provenance:
+
+| Component | Source |
+|-----------|--------|
+| `franka_warehouse_world` | this repo (Apache-2.0) |
+| `franka_ros2` | `frankarobotics` v2.5.0 + warehouse-sim changes |
+| `franka_description` | `frankarobotics` 2.8.0 + rviz change |
+| `libfranka` | `frankarobotics` 0.20.4 (unmodified) |
+| `olvx_descriptions_module` | `olive-robotics` main (unmodified) |
